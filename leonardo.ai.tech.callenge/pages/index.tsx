@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import createApolloClient from "@/util/apollo-client";
 import { gql } from "@apollo/client";
 import { Button } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +11,6 @@ type PropType = { countries: Array<any> };
 
 export default function Home({ countries }: PropType) {
   const { data: session, status, update } = useSession();
-
-  console.log(`session: `, session);
 
   return (
     <>
@@ -23,7 +21,16 @@ export default function Home({ countries }: PropType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Button colorScheme="green">Green</Button>
+        {!session && (
+          <Button colorScheme="green" onClick={() => signIn()}>
+            Sign In
+          </Button>
+        )}
+        {session && (
+          <Button colorScheme="yellow" onClick={() => signOut()}>
+            Sign out
+          </Button>
+        )}
         <div>
           {countries.map((country) => (
             <div key={country.code}>
