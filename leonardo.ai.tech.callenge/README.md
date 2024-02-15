@@ -1,5 +1,7 @@
 ## Leonardo.AI tech challenge
 
-### CSS
+### Dependencies
 
-- CSS reset was employed to remove browser-specific styles
+- ChakraUI
+- Apollo Client
+- [CSS reset](https://www.joshwcomeau.com/css/custom-css-reset/)

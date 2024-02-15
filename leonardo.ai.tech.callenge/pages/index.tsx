@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import createApolloClient from "@/util/apollo-client";
 import { gql } from "@apollo/client";
+import { Button } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function Home({ countries }: PropType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Button colorScheme="green">Green</Button>
         <div>
           {countries.map((country) => (
             <div key={country.code}>
