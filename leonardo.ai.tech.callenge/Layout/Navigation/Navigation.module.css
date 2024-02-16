@@ -1,0 +1,8 @@
+.header {
+  background-color: gray;
+}
+@media (max-width: 768px) {
+  .header {
+    background-color: red;
+  }
+}
