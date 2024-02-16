@@ -2,12 +2,32 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import createApolloClient from "@/util/apollo-client";
 import { gql } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type PropType = { countries: Array<any> };
 
 export default function Home({ countries }: PropType) {
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    getSession().then((session) => {
+      if (!session) {
+        router.replace("/login");
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, [router]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <Head>
@@ -16,21 +36,7 @@ export default function Home({ countries }: PropType) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <div>
-          {countries.map((country) => (
-            <div key={country.code}>
-              <h3>
-                {country.name} ({country.code})
-              </h3>
-              <div>
-                Captial: {country.capital}, Language:{" "}
-                {country.languages[0]?.name}
-              </div>
-            </div>
-          ))}
-        </div>
-      </main>
+      <div>Home</div>
     </>
   );
 }

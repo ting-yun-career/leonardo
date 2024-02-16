@@ -1,8 +1,20 @@
 .header {
   background-color: gray;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
 }
-@media (max-width: 768px) {
-  .header {
-    background-color: red;
-  }
+
+.header nav {
+  flex: 1 1 auto;
+}
+
+.header nav a:hover {
+  color: white;
+}
+
+.header nav a + a {
+  margin-left: 1rem;
+}
+.menu {
 }

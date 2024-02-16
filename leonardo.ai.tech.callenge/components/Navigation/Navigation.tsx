@@ -1,37 +1,40 @@
 import Link from "next/link";
 import classes from "./Navigation.module.css";
-import { Button } from "@chakra-ui/react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import {
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
+import { signOut } from "next-auth/react";
+import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 interface Props {}
 
 function Navigation(props: Props) {
-  const { data: session } = useSession();
-
   return (
     <>
       <header className={classes.header}>
-        <Link href="/">Demo</Link>
-        <nav>
-          <ul>
-            <li>
-              <Link href="/posts">Posts</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
+        <nav className={classes.links}>
+          <Link href="/">Demo</Link>
+          <Link href="/info">Information</Link>
         </nav>
-        {!session && (
-          <Button colorScheme="green" onClick={() => signIn()}>
-            Sign In
-          </Button>
-        )}
-        {session && (
-          <Button colorScheme="yellow" onClick={() => signOut()}>
-            Sign out
-          </Button>
-        )}
+        <div className={classes.menu}>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem icon={<ExternalLinkIcon />} onClick={() => signOut()}>
+                Sign out
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
       </header>
     </>
   );

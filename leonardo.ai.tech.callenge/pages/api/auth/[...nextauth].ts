@@ -9,11 +9,13 @@ const handler = NextAuth({
         username: { label: "Username", type: "text", placeholder: "abc" },
         password: { label: "Password", type: "password", placeholder: "123" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const users = [
           { id: "1", username: "abc", password: "123" },
           { id: "2", username: "cdf", password: "123" },
         ];
+
+        return { id: "1", username: "abc", password: "123" };
 
         const { username, password } = credentials as {
           username: string;
