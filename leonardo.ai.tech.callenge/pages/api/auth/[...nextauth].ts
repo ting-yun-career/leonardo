@@ -6,11 +6,22 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Email", type: "text", placeholder: "abc" },
+        username: { label: "Username", type: "text", placeholder: "abc" },
         password: { label: "Password", type: "password", placeholder: "123" },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", username: "abc", email: "abc@demo.com" };
+        const users = [
+          { id: "1", username: "abc", password: "123" },
+          { id: "2", username: "cdf", password: "123" },
+        ];
+
+        const { username, password } = credentials as {
+          username: string;
+          password: string;
+        };
+        const user = users.find(
+          (u) => u.username === username && u.password === password
+        );
 
         if (user) {
           return user;
