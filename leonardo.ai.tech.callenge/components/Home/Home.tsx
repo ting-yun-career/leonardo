@@ -26,10 +26,10 @@ export default function HomeComp() {
           {hasProfile ? (
             <>
               <Text>
-                Username: <Text as="b">{user?.username ?? "N/A"}</Text>
+                Username: <Text as="b">{user?.username}</Text>
               </Text>
               <Text>
-                Job Title: <Text as="b">{user?.title ?? "N/A"}</Text>
+                Job Title: <Text as="b">{user?.title}</Text>
               </Text>
             </>
           ) : (
