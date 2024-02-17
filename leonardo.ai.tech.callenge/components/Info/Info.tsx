@@ -1,6 +1,5 @@
 import {
   Text,
-  Center,
   SimpleGrid,
   Box,
   Flex,
@@ -11,7 +10,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
