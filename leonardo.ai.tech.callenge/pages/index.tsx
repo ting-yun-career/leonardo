@@ -2,9 +2,11 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import createApolloClient from "@/util/apollo-client";
 import { gql } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import { UserContext } from "@/context/UserContext";
+import { UserContextType } from "@/types/next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,15 +16,19 @@ export default function Home({ countries }: PropType) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
+  const { setUser } = useContext<UserContextType>(UserContext);
+
   useEffect(() => {
     getSession().then((session) => {
+      console.log("session", session);
       if (!session) {
         router.replace("/login");
       } else {
         setIsLoading(false);
+        // setUser(session as unknown as User);
       }
     });
-  }, [router]);
+  }, [router, setUser]);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -41,27 +47,27 @@ export default function Home({ countries }: PropType) {
   );
 }
 
-export async function getStaticProps() {
-  const client = createApolloClient();
+// export async function getStaticProps() {
+//   const client = createApolloClient();
 
-  const { data } = await client.query({
-    query: gql`
-      query Countries {
-        countries(filter: { currency: { eq: "USD" } }) {
-          code
-          name
-          capital
-          languages {
-            name
-          }
-        }
-      }
-    `,
-  });
+//   const { data } = await client.query({
+//     query: gql`
+//       query Countries {
+//         countries(filter: { currency: { eq: "USD" } }) {
+//           code
+//           name
+//           capital
+//           languages {
+//             name
+//           }
+//         }
+//       }
+//     `,
+//   });
 
-  return {
-    props: {
-      countries: data.countries,
-    },
-  };
-}
+//   return {
+//     props: {
+//       countries: data.countries,
+//     },
+//   };
+// }

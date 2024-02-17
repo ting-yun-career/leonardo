@@ -1,3 +1,4 @@
+import { Awaitable, DefaultSession, Session } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -6,33 +7,39 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "abc" },
-        password: { label: "Password", type: "password", placeholder: "123" },
+        email: { label: "Email", type: "text", placeholder: "Enter email" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Enter password",
+        },
       },
-      async authorize(credentials) {
-        const users = [
-          { id: "1", username: "abc", password: "123" },
-          { id: "2", username: "cdf", password: "123" },
+      authorize: function (credentials) {
+        const users: User[] = [
+          {
+            id: "1",
+            email: "abc@gmail.com",
+            password: "123",
+            username: "abc",
+            title: "SDE",
+          },
         ];
 
-        return { id: "1", username: "abc", password: "123" };
-
-        const { username, password } = credentials as {
-          username: string;
-          password: string;
-        };
-        const user = users.find(
-          (u) => u.username === username && u.password === password
-        );
-
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
+        return users[0];
       },
     }),
   ],
+  callbacks: {
+    session({ session, token, user }) {
+      return token.user as Awaitable<Session | DefaultSession>;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+  },
 });
 
 export default handler;

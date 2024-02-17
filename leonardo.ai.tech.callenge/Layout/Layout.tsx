@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/button";
 import Navigation from "../components/Navigation/Navigation";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 interface Props {
   children: React.ReactNode;
