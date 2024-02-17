@@ -6,6 +6,16 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { UserContext } from "@/context/UserContext";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Center,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +25,7 @@ export default function Home({ countries }: PropType) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const { setUser } = useContext<UserContextType>(UserContext);
+  const { user, setUser } = useContext<UserContextType>(UserContext);
 
   useEffect(() => {
     getSession().then((session) => {
@@ -32,6 +42,8 @@ export default function Home({ countries }: PropType) {
     return <p>Loading...</p>;
   }
 
+  const hasProfile = user?.username || user?.title;
+
   return (
     <>
       <Head>
@@ -40,7 +52,30 @@ export default function Home({ countries }: PropType) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Home</div>
+      <Center height="calc(100vh - 75px)">
+        <Card minWidth="20rem">
+          <CardHeader>
+            <Heading size="md">Profile</Heading>
+          </CardHeader>
+          <CardBody>
+            {hasProfile ? (
+              <>
+                <Text>
+                  Username: <Text as="b">{user?.username ?? "N/A"}</Text>
+                </Text>
+                <Text>
+                  Job Title: <Text as="b">{user?.title ?? "N/A"}</Text>
+                </Text>
+              </>
+            ) : (
+              <Text>Not Yet Filled</Text>
+            )}
+          </CardBody>
+          <CardFooter>
+            <Button>Update</Button>
+          </CardFooter>
+        </Card>
+      </Center>
     </>
   );
 }

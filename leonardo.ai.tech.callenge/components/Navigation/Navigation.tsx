@@ -24,7 +24,6 @@ function Navigation(props: Props) {
         <nav className={classes.links}>
           <Link href="/">Demo</Link>
           <Link href="/info">Information</Link>
-          {JSON.stringify(user)}
         </nav>
         <div className={classes.menu}>
           <Menu>
