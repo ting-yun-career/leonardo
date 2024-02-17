@@ -4,27 +4,30 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { UserContext } from "@/context/UserContext";
-import Home from "@/components/Home/Home";
+import HomeComp from "@/components/Home/Home";
+import useAuth from "@/hooks/isAuth";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Root() {
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  // const [isLoading, setIsLoading] = useState(true);
+  // const router = useRouter();
 
-  const { user, setUser, hasProfile } =
-    useContext<UserContextType>(UserContext);
+  // const { user, setUser, hasProfile } =
+  //   useContext<UserContextType>(UserContext);
 
-  useEffect(() => {
-    getSession().then((session) => {
-      if (!session) {
-        router.replace("/login");
-      } else {
-        setIsLoading(false);
-        setUser(session as unknown as User);
-      }
-    });
-  }, [router, setUser]);
+  // useEffect(() => {
+  //   getSession().then((session) => {
+  //     if (!session) {
+  //       router.replace("/login");
+  //     } else {
+  //       setIsLoading(false);
+  //       setUser(session as unknown as User);
+  //     }
+  //   });
+  // }, [router, setUser]);
+
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -38,7 +41,7 @@ export default function Root() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home />
+      <HomeComp />
     </>
   );
 }

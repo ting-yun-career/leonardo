@@ -1,12 +1,12 @@
-import Head from "next/head";
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
-import { UserContext } from "@/context/UserContext";
-import Home from "@/components/Home/Home";
+import useAuth from "@/hooks/isAuth";
+import InfoComp from "@/components/Info/Info";
 
-export default function Info() {
-  const [isLoading, setIsLoading] = useState(true);
+export default function PageInfo() {
+  const { isLoading } = useAuth();
 
-  return <>{isLoading ? <p>...Loading</p> : <Info />}</>;
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  return <InfoComp />;
 }

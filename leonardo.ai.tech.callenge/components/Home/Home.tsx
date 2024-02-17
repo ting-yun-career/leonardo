@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 
-export default function Home() {
+export default function HomeComp() {
   const { user, setUser, hasProfile } =
     useContext<UserContextType>(UserContext);
 
