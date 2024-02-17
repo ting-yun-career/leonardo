@@ -9,4 +9,5 @@ type User = {
 type UserContextType = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  hasProfile?: boolean;
 };

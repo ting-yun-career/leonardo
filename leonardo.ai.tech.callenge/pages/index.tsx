@@ -25,7 +25,8 @@ export default function Home({ countries }: PropType) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const { user, setUser } = useContext<UserContextType>(UserContext);
+  const { user, setUser, hasProfile } =
+    useContext<UserContextType>(UserContext);
 
   useEffect(() => {
     getSession().then((session) => {
@@ -41,8 +42,6 @@ export default function Home({ countries }: PropType) {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  const hasProfile = user?.username || user?.title;
 
   return (
     <>
@@ -68,11 +67,11 @@ export default function Home({ countries }: PropType) {
                 </Text>
               </>
             ) : (
-              <Text>Not Yet Filled</Text>
+              <Text>No Profile</Text>
             )}
           </CardBody>
           <CardFooter>
-            <Button>Update</Button>
+            <Button>{hasProfile ? `Update Profile` : `Add Profile`}</Button>
           </CardFooter>
         </Card>
       </Center>

@@ -16,14 +16,15 @@ import { useContext } from "react";
 interface Props {}
 
 function Navigation(props: Props) {
-  const { user, setUser } = useContext<UserContextType>(UserContext);
+  const { user, setUser, hasProfile } =
+    useContext<UserContextType>(UserContext);
 
   return (
     <>
       <header className={classes.header}>
         <nav className={classes.links}>
           <Link href="/">Demo</Link>
-          <Link href="/info">Information</Link>
+          {hasProfile && <Link href="/info">Information</Link>}
         </nav>
         <div className={classes.menu}>
           <Menu>
@@ -34,10 +35,6 @@ function Navigation(props: Props) {
               variant="outline"
             />
             <MenuList>
-              <MenuItem icon={<InfoIcon />} onClick={() => {}}>
-                Profile
-              </MenuItem>
-              <MenuDivider />
               <MenuItem icon={<ExternalLinkIcon />} onClick={() => signOut()}>
                 Sign out
               </MenuItem>
