@@ -40,7 +40,7 @@ export default function InfoComp({ data }: Props) {
   return (
     <>
       <Box height="calc(100vh - 75px)">
-        <Box w="75%" ml="auto" mr="auto" mt="1rem">
+        <Box w="75%" ml="auto" mr="auto" pt="1rem">
           <SimpleGrid minChildWidth="120px" spacing="1rem">
             {countries.map((country) => (
               <Flex
