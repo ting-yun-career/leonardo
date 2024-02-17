@@ -1,0 +1,12 @@
+html a {
+  color: var(--green-cloud);
+  text-underline-offset: 5px;
+}
+
+html a:hover {
+  text-decoration: underline;
+}
+
+html * {
+  color: var(--green-cloud);
+}

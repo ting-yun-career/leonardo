@@ -52,7 +52,8 @@ export default function Home({ countries }: PropType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Center height="calc(100vh - 75px)">
-        <Card minWidth="20rem">
+        {/* 100vh - height of the nav header*/}
+        <Card minWidth={{ base: "10rem", sm: "20rem" }}>
           <CardHeader>
             <Heading size="md">Profile</Heading>
           </CardHeader>
