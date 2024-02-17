@@ -1,27 +1,14 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import createApolloClient from "@/util/apollo-client";
-import { gql } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { UserContext } from "@/context/UserContext";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Center,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import Home from "@/components/Home/Home";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type PropType = { countries: Array<any> };
-
-export default function Home({ countries }: PropType) {
+export default function Root() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -51,56 +38,7 @@ export default function Home({ countries }: PropType) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* 100vh - height of the nav header*/}
-      <Center height="calc(100vh - 75px)">
-        <Card minWidth={{ base: "10rem", sm: "20rem" }}>
-          <CardHeader>
-            <Heading size="md">Profile</Heading>
-          </CardHeader>
-          <CardBody>
-            {hasProfile ? (
-              <>
-                <Text>
-                  Username: <Text as="b">{user?.username ?? "N/A"}</Text>
-                </Text>
-                <Text>
-                  Job Title: <Text as="b">{user?.title ?? "N/A"}</Text>
-                </Text>
-              </>
-            ) : (
-              <Text>No Profile</Text>
-            )}
-          </CardBody>
-          <CardFooter>
-            <Button>{hasProfile ? `Update Profile` : `Add Profile`}</Button>
-          </CardFooter>
-        </Card>
-      </Center>
+      <Home />
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   const client = createApolloClient();
-
-//   const { data } = await client.query({
-//     query: gql`
-//       query Countries {
-//         countries(filter: { currency: { eq: "USD" } }) {
-//           code
-//           name
-//           capital
-//           languages {
-//             name
-//           }
-//         }
-//       }
-//     `,
-//   });
-
-//   return {
-//     props: {
-//       countries: data.countries,
-//     },
-//   };
-// }
