@@ -39,8 +39,8 @@ export default function InfoComp({ data }: Props) {
 
   return (
     <>
-      <Center height="calc(100vh - 75px)">
-        <Box w="75%">
+      <Box height="calc(100vh - 75px)">
+        <Box w="75%" ml="auto" mr="auto" mt="1rem">
           <SimpleGrid minChildWidth="120px" spacing="1rem">
             {countries.map((country) => (
               <Flex
@@ -68,7 +68,7 @@ export default function InfoComp({ data }: Props) {
             ))}
           </SimpleGrid>
         </Box>
-      </Center>
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent pb="1rem">
