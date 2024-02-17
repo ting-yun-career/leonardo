@@ -4,7 +4,6 @@ import {
   IconButton,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
@@ -16,8 +15,7 @@ import { useContext } from "react";
 interface Props {}
 
 function Navigation(props: Props) {
-  const { user, setUser, hasProfile } =
-    useContext<UserContextType>(UserContext);
+  const { hasProfile } = useContext<UserContextType>(UserContext);
 
   return (
     <>

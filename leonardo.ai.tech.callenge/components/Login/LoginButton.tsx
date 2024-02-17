@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import classes from "./LoginButton.module.css";
 import { useEffect, useRef } from "react";
 
@@ -11,8 +11,6 @@ export default function Login() {
       inputRef.current.focus();
     }
   }, []);
-
-  const { data: session } = useSession();
 
   return (
     <>
