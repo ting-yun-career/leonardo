@@ -1,3 +1,4 @@
+import { getUsers } from "@/util/user";
 import { Awaitable, DefaultSession, Session } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -14,23 +15,19 @@ const handler = NextAuth({
           placeholder: "Enter password",
         },
       },
-      authorize: function (credentials) {
-        const users: User[] = [
-          {
-            id: "1",
-            email: "abc@gmail.com",
-            password: "123",
-            username: "abc",
-            title: "SDE",
-          },
-        ];
+      authorize: async function (credentials) {
+        const result = await getUsers();
 
-        return users[0];
+        if (result.status === "success") {
+          return result.data?.[0] as User;
+        }
+
+        return null;
       },
     }),
   ],
   callbacks: {
-    session({ session, token, user }) {
+    session({ token }) {
       return token.user as Awaitable<Session | DefaultSession>;
     },
     async jwt({ token, user }) {

@@ -1,12 +1,9 @@
 [
   {
     "id": 1,
-    "username": "abc",
-    "title": null
-  },
-  {
-    "id": 2,
-    "username": "cdf",
+    "username": null,
+    "email": "abc@gmail.com",
+    "password": "123",
     "title": null
   }
 ]

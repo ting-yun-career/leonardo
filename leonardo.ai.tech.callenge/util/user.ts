@@ -1,8 +1,9 @@
-const fs = require("fs").promises;
+const fs = require("fs");
 export function getUsers() {
   try {
-    const data: User[] = fs.readFileSync(`../data/users.json`);
-    return { status: "success", data };
+    const data = fs.readFileSync(`./data/users.json`, "utf-8");
+
+    return { status: "success", data: JSON.parse(data) };
   } catch (error) {
     return { status: "fail", error };
   }
@@ -11,6 +12,6 @@ export function getUsers() {
 export function getUser(id: string) {
   const result = getUsers();
   if (result.status === "success") {
-    const user = result.data?.find((u) => u.id === id) ?? null;
+    const user = result.data?.find((u: User) => u.id === id) ?? null;
   }
 }
