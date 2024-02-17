@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { UserContext } from "@/context/UserContext";
-import { UserContextType } from "@/types/next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +19,11 @@ export default function Home({ countries }: PropType) {
 
   useEffect(() => {
     getSession().then((session) => {
-      console.log("session", session);
       if (!session) {
         router.replace("/login");
       } else {
         setIsLoading(false);
-        // setUser(session as unknown as User);
+        setUser(session as unknown as User);
       }
     });
   }, [router, setUser]);
