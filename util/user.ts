@@ -1,7 +1,10 @@
 const fs = require("fs");
 export function getUsers() {
   try {
-    const data = fs.readFileSync(`./data/users.json`, "utf-8");
+    const data = fs.readFileSync(
+      `${process.env.host}/data/users.json`,
+      "utf-8"
+    );
 
     return { status: "success", data: JSON.parse(data) };
   } catch (error) {
@@ -19,7 +22,10 @@ export function getUser(id: string) {
 
 export function saveUsers(users: User[]) {
   try {
-    fs.writeFileSync(`./data/users.json`, JSON.stringify(users, null, 2));
+    fs.writeFileSync(
+      `${process.env.host}/data/users.json`,
+      JSON.stringify(users, null, 2)
+    );
     return true;
   } catch (error) {
     return false;
