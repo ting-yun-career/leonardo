@@ -10,4 +10,6 @@ type UserContextType = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   hasProfile?: boolean;
+  host?: string;
+  setHost: React.Dispatch<React.SetStateAction<string | undefined>>;
 };

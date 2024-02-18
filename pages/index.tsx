@@ -1,9 +1,13 @@
 import Head from "next/head";
 import HomeComp from "@/components/Home/Home";
 import useAuth from "@/hooks/isAuth";
+import { UserContext } from "@/context/UserContext";
+import { useContext } from "react";
 
 export default function Root(props: any) {
-  console.log(props);
+  const { setHost } = useContext(UserContext);
+
+  setHost(props.host);
 
   const { isLoading } = useAuth();
 
@@ -24,7 +28,7 @@ export default function Root(props: any) {
 export async function getStaticProps() {
   return {
     props: {
-      server: process.env.host,
+      host: process.env.host,
     },
   };
 }
