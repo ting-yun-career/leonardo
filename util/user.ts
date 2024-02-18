@@ -1,7 +1,7 @@
 const fs = require("fs");
 export function getUsers() {
   try {
-    const data = fs.readFileSync(`/data/users.json`, "utf-8");
+    const data = fs.readFileSync(process.cwd() + `/data/users.json`, "utf-8");
 
     return { status: "success", data: JSON.parse(data) };
   } catch (error) {
