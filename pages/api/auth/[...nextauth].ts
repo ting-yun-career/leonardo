@@ -19,7 +19,7 @@ const handler = NextAuth({
         // const result = await getUsers();
 
         // if (result.status === "success") {
-        return { id: 1, name: "abc" };
+        return { id: "1", name: "abc" };
         // }
 
         // return null;
