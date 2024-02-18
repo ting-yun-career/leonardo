@@ -125,7 +125,7 @@ export default function HomeComp() {
     if (!hasProfile) {
       onOpenUsername();
     }
-  }, [hasProfile, onOpenUsername]);
+  }, []);
 
   return (
     <>
@@ -151,6 +151,7 @@ export default function HomeComp() {
           </CardBody>
           <CardFooter>
             <Button
+              isLoading={true}
               onClick={() => {
                 onOpenUsername();
               }}
@@ -175,11 +176,12 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Username</FormLabel>
               <Input
+                type="text"
                 ref={usernameInputRef}
                 focusBorderColor="gray.600"
                 value={username ?? ""}
-                type="text"
                 onChange={(e) => onUsernameChange(e.target.value)}
+                autoComplete="off"
               />
             </FormControl>
           </ModalBody>
@@ -205,11 +207,12 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Title</FormLabel>
               <Input
+                type="text"
                 ref={titleInputRef}
                 focusBorderColor="gray.600"
                 value={title ?? ""}
-                type="text"
                 onChange={(e) => onTitleChange(e.target.value)}
+                autoComplete="off"
               />
             </FormControl>
           </ModalBody>
