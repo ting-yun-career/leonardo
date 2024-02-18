@@ -157,7 +157,7 @@ export default function HomeComp() {
               ref={modalTriggerRef}
               isLoading={blockModalOpen}
               onClick={() => {
-                onOpenTitle();
+                onOpenUsername();
               }}
             >
               {hasProfile ? `Update Profile` : `Add Profile`}
