@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { saveUser } from "./helper";
+import { getHostUrl } from "@/context/host";
 
 export default function HomeComp() {
   const { user, setUser, hasProfile, host } =
@@ -48,7 +49,12 @@ export default function HomeComp() {
   };
 
   const onUsernameSave = () => {
-    fetch(`${host}/api/hello`)
+    // fetch(`${host}/api/hello`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+    fetch(`${getHostUrl()}/api/hello`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

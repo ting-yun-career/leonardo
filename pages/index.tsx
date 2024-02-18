@@ -3,11 +3,13 @@ import HomeComp from "@/components/Home/Home";
 import useAuth from "@/hooks/isAuth";
 import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
+import { setHostUrl } from "@/context/host";
 
 export default function Root(props: any) {
   const { setHost } = useContext(UserContext);
 
   setHost(props.host);
+  setHostUrl(props.host);
 
   const { isLoading } = useAuth();
 
