@@ -42,7 +42,6 @@ export default function HomeComp() {
   const onUsernameSave = () => {
     onCloseUsername();
     saveUser({ ...user, ...modalData } as User).then((payload) => {
-      console.log("payload::", payload);
       if (payload.status === "success") {
         setUser(payload.data);
       }
