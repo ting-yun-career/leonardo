@@ -35,7 +35,14 @@ export default function InfoComp({ countries }: Props) {
           <Heading size="md" mb="1rem">
             Information
           </Heading>
-          <SimpleGrid minChildWidth="120px" spacing="1rem">
+          <SimpleGrid
+            minChildWidth="120px"
+            spacing="1rem"
+            role="region"
+            aria-label={
+              countries?.length > 0 ? "Countries Grid" : "No Countries Info"
+            }
+          >
             {countries?.length > 0 ? (
               countries.map((country, index) => (
                 <Button
@@ -59,6 +66,7 @@ export default function InfoComp({ countries }: Props) {
                     showCountryModal(country);
                   }}
                   p="0.5rem"
+                  aria-label={`Select ${country.name}`}
                 >
                   {country.name}
                 </Button>

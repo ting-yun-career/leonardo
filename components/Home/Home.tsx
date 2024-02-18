@@ -136,7 +136,11 @@ export default function HomeComp() {
     <>
       <Center height="calc(100vh - 75px)">
         {/* 100vh - height of the nav header*/}
-        <Card minWidth={{ base: "10rem", sm: "20rem" }}>
+        <Card
+          minWidth={{ base: "10rem", sm: "20rem" }}
+          role="region"
+          aria-label={hasProfile ? "User Profile" : "No Profile"}
+        >
           <CardHeader>
             <Heading size="md">Profile</Heading>
           </CardHeader>
@@ -162,6 +166,7 @@ export default function HomeComp() {
               onClick={() => {
                 onOpenUsername();
               }}
+              aria-label={hasProfile ? "Update Profile" : "Add Profile"}
             >
               {hasProfile ? `Update Profile` : `Add Profile`}
             </Button>
