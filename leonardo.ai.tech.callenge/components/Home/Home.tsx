@@ -27,8 +27,10 @@ import { saveUser } from "./helper";
 export default function HomeComp() {
   const { user, setUser, hasProfile } =
     useContext<UserContextType>(UserContext);
+
   const [username, setUsername] = useState(user?.username);
   const [title, setTitle] = useState(user?.title);
+  const [blockModalOpen, setBlockModalOpen] = useState(false);
 
   const toast = useToast();
 
@@ -56,8 +58,11 @@ export default function HomeComp() {
             status: "success",
             duration: 2000,
           });
+
+          setBlockModalOpen(true);
           setTimeout(() => {
             onOpenTitle();
+            setBlockModalOpen(false);
           }, 2000);
         } else {
           setUsername(user?.username);
@@ -151,7 +156,7 @@ export default function HomeComp() {
           </CardBody>
           <CardFooter>
             <Button
-              isLoading={true}
+              isLoading={blockModalOpen}
               onClick={() => {
                 onOpenUsername();
               }}
