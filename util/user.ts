@@ -20,7 +20,7 @@ export function getUser(id: string) {
 export function saveUsers(users: User[]) {
   try {
     fs.writeFileSync(
-      `${process.env.host}/data/users.json`,
+      process.cwd() + `/data/users.json`,
       JSON.stringify(users, null, 2)
     );
     return true;
