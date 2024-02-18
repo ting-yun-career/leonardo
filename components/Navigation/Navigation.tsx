@@ -12,10 +12,10 @@ import { signOut } from "next-auth/react";
 import { ExternalLinkIcon, HamburgerIcon, InfoIcon } from "@chakra-ui/icons";
 import { UserContext } from "@/context/UserContext";
 import { useContext, useRef } from "react";
+import { useRouter } from "next/router";
 
-interface Props {}
-
-function Navigation(props: Props) {
+function Navigation() {
+  const router = useRouter();
   const { hasProfile } = useContext<UserContextType>(UserContext);
 
   const elementRef = useRef<HTMLDivElement>(null);
@@ -58,8 +58,17 @@ function Navigation(props: Props) {
       >
         {width > breakWidth && (
           <nav className={classes.links}>
-            <Link href="/">Home</Link>
-            {hasProfile && <Link href="/info">Information</Link>}
+            <Link href="/" className={router.pathname == "/" ? "active" : ""}>
+              Home
+            </Link>
+            {hasProfile && (
+              <Link
+                href="/info"
+                className={router.pathname == "/info" ? "active" : ""}
+              >
+                Information
+              </Link>
+            )}
           </nav>
         )}
         <div>
