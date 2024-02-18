@@ -20,9 +20,11 @@ const useAuth = () => {
         const session = await getSession();
         if (session) {
           const user = session as unknown as User;
-          // Calling getUser() is required because the session return by getSession() isn't reliable (it returns cached session). On page reload, it
-          // returns cached data and does not fetch latest user data from server, which causes stale data to show up after page reload.
+          // Calling getUser() is required because the session return by getSession() isn't reliable due to caching..
+          // This is probably due to JWT token storing user data on client side.
 
+          // There should be some smarter way to go about this, however since next-auth isn't
+          // the focus of the demo I'm using a brute force refetch to emulate this behaviour.
           const payload = await getUser(user.id);
 
           if (payload.status === "success") {
