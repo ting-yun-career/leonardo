@@ -33,9 +33,14 @@ function Navigation(props: Props) {
 
   const LongMenuItemList = (
     <>
-      <MenuItem as="a" href="#" icon={<InfoIcon />}>
-        Information
+      <MenuItem as="a" href="/info" icon={<InfoIcon />}>
+        Home
       </MenuItem>
+      {hasProfile && (
+        <MenuItem as="a" href="/info" icon={<InfoIcon />}>
+          Information
+        </MenuItem>
+      )}
       <MenuItem icon={<ExternalLinkIcon />} onClick={() => signOut()}>
         Sign out
       </MenuItem>
@@ -53,7 +58,7 @@ function Navigation(props: Props) {
       >
         {width > breakWidth && (
           <nav className={classes.links}>
-            <Link href="/">Demo</Link>
+            <Link href="/">Home</Link>
             {hasProfile && <Link href="/info">Information</Link>}
           </nav>
         )}
