@@ -156,7 +156,6 @@ export default function HomeComp() {
             ) : (
               <Text>No Profile</Text>
             )}
-            {JSON.stringify(user)}
           </CardBody>
           <CardFooter>
             <Button

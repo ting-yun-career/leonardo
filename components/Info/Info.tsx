@@ -16,19 +16,10 @@ import {
 import { useState } from "react";
 
 interface Props {
-  data: any;
+  countries: Country[];
 }
 
-type Country = {
-  name: string;
-  code: string;
-  capital: string;
-  languages: Array<string>;
-};
-
-export default function InfoComp({ data }: Props) {
-  const countries = data as Array<Country>;
-
+export default function InfoComp({ countries }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
@@ -45,32 +36,36 @@ export default function InfoComp({ data }: Props) {
             Information
           </Heading>
           <SimpleGrid minChildWidth="120px" spacing="1rem">
-            {countries.map((country, index) => (
-              <Button
-                autoFocus={index === 0}
-                key={country.code}
-                height="5rem"
-                borderWidth="1px"
-                borderRadius="lg"
-                justifyContent="center"
-                alignItems="center"
-                whiteSpace="wrap"
-                _hover={{
-                  background: "#eee",
-                  cursor: "pointer",
-                }}
-                sx={{
-                  background:
-                    country.code === selectedCountry?.code ? "#eee" : "none",
-                }}
-                onClick={() => {
-                  showCountryModal(country);
-                }}
-                p="0.5rem"
-              >
-                {country.name}
-              </Button>
-            ))}
+            {countries?.length > 0 ? (
+              countries.map((country, index) => (
+                <Button
+                  autoFocus={index === 0}
+                  key={country.code}
+                  height="5rem"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  justifyContent="center"
+                  alignItems="center"
+                  whiteSpace="wrap"
+                  _hover={{
+                    background: "#eee",
+                    cursor: "pointer",
+                  }}
+                  sx={{
+                    background:
+                      country.code === selectedCountry?.code ? "#eee" : "none",
+                  }}
+                  onClick={() => {
+                    showCountryModal(country);
+                  }}
+                  p="0.5rem"
+                >
+                  {country.name}
+                </Button>
+              ))
+            ) : (
+              <Button>No Countries Info</Button>
+            )}
           </SimpleGrid>
         </Box>
       </Box>

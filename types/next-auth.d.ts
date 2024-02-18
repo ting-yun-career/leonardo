@@ -13,3 +13,10 @@ type UserContextType = {
   host?: string;
   setHost: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
+
+type Country = {
+  name: string;
+  code: string;
+  capital: string;
+  languages: Array<string>;
+};

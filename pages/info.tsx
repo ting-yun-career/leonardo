@@ -2,49 +2,26 @@ import useAuth from "@/hooks/isAuth";
 import InfoComp from "@/components/Info/Info";
 
 interface Props {
-  payload: any;
+  countries: Country[];
 }
 
 export default function PageInfo(props: Props) {
-  // fetch("./api/info")
-  //   .then((payload) => payload.json())
-  //   .then((data) => {
-  //     debugger;
-  //     console.log(data);
-  //   });
-
   const { isLoading } = useAuth();
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  const { status, data, error } = props.payload;
-
-  if (status === "error") {
-    return <p>Error: {error}</p>;
-  }
-
-  return <InfoComp data={data} />;
+  return <InfoComp countries={props.countries as Country[]} />;
 }
 
 export async function getStaticProps() {
-  // let url;
-
-  // console.log(process.env.VERCEL_URL);
-
-  // if (process.env.VERCEL_URL) {
-  //   url = `${process.env.VERCEL_URL}/api/info`;
-  // } else {
-  //   url = `http://localhost:3000/api/info`;
-  // }
-  // const res = await fetch(url);
-
-  // const payload = await res.json();
+  const res = await fetch(`${process.env.host}/api/info`);
+  const payload = await res.json();
 
   return {
     props: {
-      payload: {},
+      countries: payload.data,
     },
   };
 }
