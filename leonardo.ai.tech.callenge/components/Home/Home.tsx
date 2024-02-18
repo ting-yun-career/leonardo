@@ -91,6 +91,7 @@ export default function HomeComp() {
   } = useDisclosure();
 
   const titleInputRef = useRef(null);
+  const modalTriggerRef = useRef(null);
 
   const onTitleChange = (title: string) => {
     setTitle(title);
@@ -156,6 +157,8 @@ export default function HomeComp() {
           </CardBody>
           <CardFooter>
             <Button
+              autoFocus={true}
+              ref={modalTriggerRef}
               isLoading={blockModalOpen}
               onClick={() => {
                 onOpenUsername();
@@ -169,6 +172,7 @@ export default function HomeComp() {
 
       <Modal
         initialFocusRef={usernameInputRef}
+        finalFocusRef={modalTriggerRef}
         isOpen={isOpenUsername}
         onClose={onCloseUsername}
         isCentered
@@ -200,6 +204,7 @@ export default function HomeComp() {
 
       <Modal
         initialFocusRef={titleInputRef}
+        finalFocusRef={modalTriggerRef}
         isOpen={isOpenTitle}
         onClose={onCloseTitle}
         isCentered
