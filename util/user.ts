@@ -10,7 +10,7 @@ export async function getUsers() {
     const users = await collection.find().toArray();
     client.close();
 
-    return { status: "success", data: users };
+    return { status: "success", data: users as unknown as User[] };
   } catch (error) {
     return { status: "fail", error };
   }
