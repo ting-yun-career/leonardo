@@ -1,11 +1,12 @@
 import { getUser, getUsers, saveUsers } from "@/util/user";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type ResPayloadType = {
-  status: string;
-  data?: User;
-  error?: string;
-};
+// type ResPayloadType = {
+//   status: string;
+//   data?: User;
+//   error?: string;
+// };
+type ResPayloadType = any;
 
 export default function handler(
   req: NextApiRequest,
@@ -25,6 +26,8 @@ export default function handler(
     try {
       const newUserData = JSON.parse(req.body);
       const result = getUsers();
+      res.status(200).json(result);
+      return;
 
       if (result.status === "success") {
         const newUsers = result.data.map((user: User) => {
