@@ -16,17 +16,7 @@ const handler = NextAuth({
         },
       },
       authorize: async function (credentials) {
-        console.log("authorize::credentials::", credentials);
-        // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-
-        // if (user) {
-        //   return user;
-        // } else {
-        //   return null;
-        // }
-
         const result = await getUsers();
-        console.log(result);
 
         // what should be done
         // if (result.status === "success") {
@@ -36,7 +26,7 @@ const handler = NextAuth({
         //   return null;
         // }
 
-        // what makes demo tester's life easier
+        // ... but let's just keep things simple for the demo
         const { id, email } = result.data?.[0] ?? {
           id: "1",
           email: "abc@gmail.com",

@@ -33,8 +33,8 @@ export async function saveUsers(users: User[]) {
     const db = client.db("leonardo");
     const collection = db.collection("users");
 
-    const deleteResult = await collection.deleteMany({});
-    const insertResult = await collection.insertMany(users);
+    await collection.deleteMany({});
+    await collection.insertMany(users);
 
     return { status: "success", data: users };
   } catch (error) {

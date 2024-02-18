@@ -35,7 +35,9 @@ export default async function handler(
         res.status(200).json({ status: "success", data: newUserData });
         return;
       }
-    } catch {}
+    } catch {
+      res.status(500).json({ status: "fail", error: "unable to write to database" });
+    }
   } else {
     res.status(500).json({ status: "fail", error: "method not supported" });
   }

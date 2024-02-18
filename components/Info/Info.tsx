@@ -2,7 +2,6 @@ import {
   Text,
   SimpleGrid,
   Box,
-  Flex,
   useDisclosure,
   Modal,
   ModalOverlay,
