@@ -40,7 +40,7 @@ export default function handler(
         res.status(200).json({ savingResult });
         return;
 
-        if (isSaved) {
+        if (savingResult.success) {
           res.status(200).json({ status: "success", data: newUserData });
         } else {
           res
