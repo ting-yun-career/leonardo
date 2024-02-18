@@ -20,7 +20,7 @@ const handler = NextAuth({
         console.log("authorize fetch result", result);
 
         if (result.status === "success") {
-          return result?.data[0];
+          return result?.data[0] as unknown as User;
         }
 
         return null;
