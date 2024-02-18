@@ -35,10 +35,10 @@ export default function handler(
           return user;
         });
 
-        res.status(200).json({ newUsers });
-        return;
+        const savingResult = saveUsers(newUsers);
 
-        const isSaved = saveUsers(newUsers);
+        res.status(200).json({ savingResult });
+        return;
 
         if (isSaved) {
           res.status(200).json({ status: "success", data: newUserData });

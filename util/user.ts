@@ -23,8 +23,8 @@ export function saveUsers(users: User[]) {
       process.cwd() + `/data/users.json`,
       JSON.stringify(users, null, 2)
     );
-    return true;
+    return { success: true };
   } catch (error) {
-    return false;
+    return { success: false, error };
   }
 }
