@@ -15,25 +15,33 @@ const handler = NextAuth({
           placeholder: "Enter password",
         },
       },
-      authorize: function (credentials) {
-        // return { id: "1", name: "aaa", email: "aaa" };
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+      authorize: async function (credentials) {
+        console.log("authorize::credentials::", credentials);
+        // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
 
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
-        // const result = await getUsers();
-        // console.log("authorize fetch result", result);
-
-        // if (result.status === "success") {
-
-        //   console.log(result)
-        //   return result?.data?.[0] ?? { id: "1", name: "", email: "" };
+        // if (user) {
+        //   return user;
+        // } else {
+        //   return null;
         // }
 
-        // return null;
+        const result = await getUsers();
+        console.log(result);
+
+        // what should be done
+        // if (result.status === "success") {
+        //   const user = result.data?.find((u: any) => u.email == credentials?.email);
+        //   return user;
+        // } else {
+        //   return null;
+        // }
+
+        // what makes demo tester's life easier
+        const { id, email } = result.data?.[0] ?? {
+          id: "1",
+          email: "abc@gmail.com",
+        };
+        return { id, email };
       },
     }),
   ],
