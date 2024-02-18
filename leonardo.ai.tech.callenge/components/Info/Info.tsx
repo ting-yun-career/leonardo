@@ -45,8 +45,9 @@ export default function InfoComp({ data }: Props) {
             Information
           </Heading>
           <SimpleGrid minChildWidth="120px" spacing="1rem">
-            {countries.map((country) => (
+            {countries.map((country, index) => (
               <Button
+                autoFocus={index === 0}
                 key={country.code}
                 height="5rem"
                 borderWidth="1px"
@@ -55,12 +56,12 @@ export default function InfoComp({ data }: Props) {
                 alignItems="center"
                 whiteSpace="wrap"
                 _hover={{
-                  background: "#ddd",
+                  background: "#eee",
                   cursor: "pointer",
                 }}
                 sx={{
                   background:
-                    country.code === selectedCountry?.code ? "#ddd" : "none",
+                    country.code === selectedCountry?.code ? "#eee" : "none",
                 }}
                 onClick={() => {
                   showCountryModal(country);

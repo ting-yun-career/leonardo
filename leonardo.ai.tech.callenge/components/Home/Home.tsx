@@ -56,20 +56,20 @@ export default function HomeComp() {
           toast({
             description: "Data saved",
             status: "success",
-            duration: 2000,
+            duration: 1000,
           });
 
           setBlockModalOpen(true);
           setTimeout(() => {
             onOpenTitle();
             setBlockModalOpen(false);
-          }, 2000);
+          }, 1000);
         } else {
           setUsername(user?.username);
           toast({
             description: "Data not saved",
             status: "error",
-            duration: 3000,
+            duration: 2000,
           });
         }
       })
@@ -78,7 +78,7 @@ export default function HomeComp() {
         toast({
           description: "Data not saved",
           status: "error",
-          duration: 3000,
+          duration: 2000,
         });
       });
   };
@@ -106,23 +106,23 @@ export default function HomeComp() {
           toast({
             description: "Data saved",
             status: "success",
-            duration: 2000,
+            duration: 1000,
           });
         } else {
           setTitle(user?.title);
           toast({
             description: "Data not saved",
             status: "error",
-            duration: 3000,
+            duration: 2000,
           });
         }
       })
       .catch(() => {
-        setUsername(user?.title);
+        setTitle(user?.title);
         toast({
           description: "Data not saved",
           status: "error",
-          duration: 3000,
+          duration: 2000,
         });
       });
   };
@@ -174,7 +174,10 @@ export default function HomeComp() {
         initialFocusRef={usernameInputRef}
         finalFocusRef={modalTriggerRef}
         isOpen={isOpenUsername}
-        onClose={onCloseUsername}
+        onClose={() => {
+          onCloseUsername();
+          setUsername(user?.username);
+        }}
         isCentered
       >
         <ModalOverlay />
@@ -206,7 +209,10 @@ export default function HomeComp() {
         initialFocusRef={titleInputRef}
         finalFocusRef={modalTriggerRef}
         isOpen={isOpenTitle}
-        onClose={onCloseTitle}
+        onClose={() => {
+          onCloseTitle();
+          setTitle(user?.title);
+        }}
         isCentered
       >
         <ModalOverlay />
