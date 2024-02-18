@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/isAuth";
 import InfoComp from "@/components/Info/Info";
+import { Box, Skeleton, Stack } from "@chakra-ui/react";
 
 interface Props {
   countries: Country[];
@@ -9,7 +10,16 @@ export default function PageInfo(props: Props) {
   const { isLoading } = useAuth();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <Box w="75%" ml="auto" mr="auto" pt="1rem" maxWidth="50rem">
+        <Stack>
+          <Skeleton height="5rem" mt="2rem" />
+          <Skeleton height="5rem" mt="1rem" />
+          <Skeleton height="5rem" mt="1rem" />
+          <Skeleton height="5rem" mt="1rem" />
+        </Stack>
+      </Box>
+    );
   }
 
   return <InfoComp countries={props.countries as Country[]} />;
