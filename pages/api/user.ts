@@ -26,8 +26,6 @@ export default function handler(
     try {
       const newUserData = JSON.parse(req.body);
       const result = getUsers();
-      res.status(200).json({ result });
-      return;
 
       if (result.status === "success") {
         const newUsers = result.data.map((user: User) => {
@@ -36,6 +34,9 @@ export default function handler(
           }
           return user;
         });
+
+        res.status(200).json({ newUsers });
+        return;
 
         const isSaved = saveUsers(newUsers);
 
