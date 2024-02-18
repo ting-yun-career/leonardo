@@ -20,7 +20,7 @@ export default function Root() {
   return (
     <>
       <Head>
-        <title>Leonardo.AI Challenge {`>`} Home</title>
+        <title>Leonardo.AI Challenge | Home</title>
       </Head>
       <HomeComp />
     </>

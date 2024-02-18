@@ -1,6 +1,7 @@
 import useAuth from "@/hooks/isAuth";
 import InfoComp from "@/components/Info/Info";
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
+import Head from "next/head";
 
 interface Props {
   countries: Country[];
@@ -22,7 +23,14 @@ export default function PageInfo(props: Props) {
     );
   }
 
-  return <InfoComp countries={props.countries as Country[]} />;
+  return (
+    <>
+      <Head>
+        <title>Leonardo.AI Challenge | Information</title>
+      </Head>
+      <InfoComp countries={props.countries as Country[]} />
+    </>
+  );
 }
 
 export async function getStaticProps() {
