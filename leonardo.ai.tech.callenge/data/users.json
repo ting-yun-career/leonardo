@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "username": null,
+    "username": "ddd",
     "email": "abc@gmail.com",
     "password": "123",
     "title": null

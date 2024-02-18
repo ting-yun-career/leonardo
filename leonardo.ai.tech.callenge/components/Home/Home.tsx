@@ -24,7 +24,8 @@ import { useContext, useState } from "react";
 import { saveUser } from "./helper";
 
 export default function HomeComp() {
-  const { user, hasProfile } = useContext<UserContextType>(UserContext);
+  const { user, setUser, hasProfile } =
+    useContext<UserContextType>(UserContext);
   const [modalData, setModalData] = useState<Partial<User>>({});
 
   // Username Modal
@@ -40,7 +41,13 @@ export default function HomeComp() {
 
   const onUsernameSave = () => {
     onCloseUsername();
-    onOpenTitle();
+    saveUser({ ...user, ...modalData } as User).then((payload) => {
+      console.log("payload::", payload);
+      if (payload.status === "success") {
+        setUser(payload.data);
+      }
+    });
+    // onOpenTitle();
   };
 
   // Job Title Modal
@@ -56,7 +63,11 @@ export default function HomeComp() {
 
   const onTitleSave = () => {
     onCloseTitle();
-    saveUser({ ...user, ...modalData } as User);
+    saveUser({ ...user, ...modalData } as User).then((payload) => {
+      if (payload.status === "success") {
+        setUser(payload.data);
+      }
+    });
   };
 
   return (
@@ -80,8 +91,7 @@ export default function HomeComp() {
             ) : (
               <Text>No Profile</Text>
             )}
-
-            <div>{JSON.stringify(modalData)}</div>
+            {JSON.stringify(user)}
           </CardBody>
           <CardFooter>
             <Button

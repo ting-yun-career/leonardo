@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { UserContext } from "@/context/UserContext";
+import { getUser } from "@/components/Home/helper";
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,9 +17,11 @@ const useAuth = () => {
       }
 
       try {
-        const session = await getSession();
+        const session = await getSession({});
         if (session) {
+          const user = session as unknown as User;
           setUser(session as unknown as User);
+          // await getUser(session.id)
           setIsLoading(false);
         } else {
           router.replace("/login");

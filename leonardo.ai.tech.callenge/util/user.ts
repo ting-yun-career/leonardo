@@ -15,3 +15,12 @@ export function getUser(id: string) {
     const user = result.data?.find((u: User) => u.id === id) ?? null;
   }
 }
+
+export function saveUsers(users: User[]) {
+  try {
+    fs.writeFileSync(`./data/users.json`, JSON.stringify(users, null, 2));
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

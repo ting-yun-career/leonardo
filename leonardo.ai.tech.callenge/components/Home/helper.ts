@@ -1,4 +1,10 @@
 export function saveUser(user: User) {
-  console.log("saving user...");
-  return user;
+  return fetch(`/api/user`, {
+    method: "PUT",
+    body: JSON.stringify(user),
+  }).then((response) => response.json());
+}
+
+export function getUser(id: string) {
+  return fetch(`/api/user/${id}`).then((response) => response.json());
 }
