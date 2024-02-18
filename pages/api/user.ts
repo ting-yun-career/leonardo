@@ -24,10 +24,10 @@ export default function handler(
     }
   } else if (method === "POST") {
     try {
+      res.status(200).json({ foo: "bar" });
+      return;
       const newUserData = JSON.parse(req.body);
       const result = getUsers();
-      res.status(200).json(result);
-      return;
 
       if (result.status === "success") {
         const newUsers = result.data.map((user: User) => {
