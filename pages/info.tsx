@@ -6,12 +6,12 @@ interface Props {
 }
 
 export default function PageInfo(props: Props) {
-  fetch("./api/info")
-    .then((payload) => payload.json())
-    .then((data) => {
-      debugger;
-      console.log(data);
-    });
+  // fetch("./api/info")
+  //   .then((payload) => payload.json())
+  //   .then((data) => {
+  //     debugger;
+  //     console.log(data);
+  //   });
 
   const { isLoading } = useAuth();
 
