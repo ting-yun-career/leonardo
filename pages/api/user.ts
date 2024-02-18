@@ -35,7 +35,7 @@ export default async function handler(
           return user;
         });
 
-        const savingResult = saveUsers(newUsers);
+        const savingResult = saveUsers(newUsers ?? []);
 
         res.status(200).json({ savingResult });
         return;

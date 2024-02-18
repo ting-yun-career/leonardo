@@ -28,7 +28,7 @@ export async function getUser(id: string) {
 export function saveUsers(users: User[]) {
   try {
     // write to db
-    return { success: true };
+    return { success: true, data: users };
   } catch (error) {
     return { success: false, error };
   }
