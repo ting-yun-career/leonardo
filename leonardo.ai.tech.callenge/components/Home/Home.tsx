@@ -21,13 +21,14 @@ import {
   ModalFooter,
   useToast,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { saveUser } from "./helper";
 
 export default function HomeComp() {
   const { user, setUser, hasProfile } =
     useContext<UserContextType>(UserContext);
-  const [modalData, setModalData] = useState<Partial<User>>({});
+  const [username, setUsername] = useState(user?.username);
+  const [title, setTitle] = useState(user?.title);
 
   const toast = useToast();
 
@@ -39,28 +40,40 @@ export default function HomeComp() {
   } = useDisclosure();
 
   const onUsernameChange = (username: string) => {
-    setModalData({ ...modalData, username });
+    setUsername(username);
   };
 
   const onUsernameSave = () => {
     onCloseUsername();
-    saveUser({ ...user, ...modalData } as User).then((payload) => {
-      if (payload.status === "success") {
-        setUser(payload.data);
-        toast({
-          description: "Data saved",
-          status: "success",
-          duration: 2000,
-        });
-      } else {
+    saveUser({ ...user, username } as User)
+      .then((payload) => {
+        if (payload.status === "success") {
+          setUser(payload.data);
+          toast({
+            description: "Data saved",
+            status: "success",
+            duration: 2000,
+          });
+          setTimeout(() => {
+            onOpenTitle();
+          }, 2000);
+        } else {
+          setUsername(user?.username);
+          toast({
+            description: "Data not saved",
+            status: "error",
+            duration: 3000,
+          });
+        }
+      })
+      .catch(() => {
+        setUsername(user?.username);
         toast({
           description: "Data not saved",
           status: "error",
           duration: 3000,
         });
-      }
-    });
-    // onOpenTitle();
+      });
   };
 
   // Job Title Modal
@@ -71,17 +84,44 @@ export default function HomeComp() {
   } = useDisclosure();
 
   const onTitleChange = (title: string) => {
-    setModalData({ ...modalData, title });
+    setTitle(title);
   };
 
   const onTitleSave = () => {
     onCloseTitle();
-    saveUser({ ...user, ...modalData } as User).then((payload) => {
-      if (payload.status === "success") {
-        setUser(payload.data);
-      }
-    });
+    saveUser({ ...user, title } as User)
+      .then((payload) => {
+        if (payload.status === "success") {
+          setUser(payload.data);
+          toast({
+            description: "Data saved",
+            status: "success",
+            duration: 2000,
+          });
+        } else {
+          setTitle(user?.title);
+          toast({
+            description: "Data not saved",
+            status: "error",
+            duration: 3000,
+          });
+        }
+      })
+      .catch(() => {
+        setUsername(user?.title);
+        toast({
+          description: "Data not saved",
+          status: "error",
+          duration: 3000,
+        });
+      });
   };
+
+  useEffect(() => {
+    if (!hasProfile) {
+      onOpenUsername();
+    }
+  }, [hasProfile, onOpenUsername]);
 
   return (
     <>
@@ -104,7 +144,6 @@ export default function HomeComp() {
             ) : (
               <Text>No Profile</Text>
             )}
-            {JSON.stringify(user)}
           </CardBody>
           <CardFooter>
             <Button
@@ -127,6 +166,7 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Username</FormLabel>
               <Input
+                value={username ?? ""}
                 type="text"
                 onChange={(e) => onUsernameChange(e.target.value)}
               />
@@ -149,6 +189,7 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Title</FormLabel>
               <Input
+                value={title ?? ""}
                 type="text"
                 onChange={(e) => onTitleChange(e.target.value)}
               />
