@@ -48,6 +48,8 @@ export default function HomeComp() {
   };
 
   const onUsernameSave = () => {
+    console.log(process.env);
+
     fetch("https://leonardo-pi.vercel.app/api/hello")
       .then((res) => res.json())
       .then((data) => {
