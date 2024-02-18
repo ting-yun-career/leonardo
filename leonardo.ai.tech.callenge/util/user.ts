@@ -12,7 +12,8 @@ export function getUsers() {
 export function getUser(id: string) {
   const result = getUsers();
   if (result.status === "success") {
-    const user = result.data?.find((u: User) => u.id === id) ?? null;
+    const user = result.data?.find((u: User) => u.id == id) ?? null;
+    return user;
   }
 }
 

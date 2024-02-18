@@ -6,5 +6,5 @@ export function saveUser(user: User) {
 }
 
 export function getUser(id: string) {
-  return fetch(`/api/user/${id}`).then((response) => response.json());
+  return fetch(`/api/user?id=${id}`).then((response) => response.json());
 }

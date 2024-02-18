@@ -1,4 +1,4 @@
-import { getUsers, saveUsers } from "@/util/user";
+import { getUser, getUsers, saveUsers } from "@/util/user";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResPayloadType = {
@@ -14,13 +14,14 @@ export default function handler(
   const { method, body } = req;
 
   if (method === "GET") {
-    console.log("body", req.body);
-  }
-
-  if (method === "PUT") {
-    console.log("method", req.method);
-    console.log("body", req.body);
-
+    const { id } = req.query;
+    const data = getUser(id as string);
+    if (data) {
+      res.status(200).json({ status: "success", data });
+    } else {
+      res.status(500).json({ status: "fail", error: "unable to find user" });
+    }
+  } else if (method === "PUT") {
     try {
       const newUserData = JSON.parse(req.body);
       const result = getUsers();

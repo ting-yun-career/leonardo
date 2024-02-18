@@ -17,11 +17,13 @@ const useAuth = () => {
       }
 
       try {
-        const session = await getSession({});
+        const session = await getSession();
         if (session) {
           const user = session as unknown as User;
-          setUser(session as unknown as User);
-          // await getUser(session.id)
+          const payload = await getUser(user.id);
+          if (payload.status === "success") {
+            setUser(payload.data);
+          }
           setIsLoading(false);
         } else {
           router.replace("/login");
