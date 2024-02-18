@@ -53,6 +53,7 @@ export default function HomeComp() {
     saveUser({ ...user, username } as User)
       .then((payload) => {
         if (payload.status === "success") {
+          delete payload.data._id;
           setUser(payload.data);
           toast({
             description: "Data saved",
@@ -155,6 +156,7 @@ export default function HomeComp() {
             ) : (
               <Text>No Profile</Text>
             )}
+            {JSON.stringify(user)}
           </CardBody>
           <CardFooter>
             <Button

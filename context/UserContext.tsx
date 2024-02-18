@@ -16,10 +16,9 @@ export function UserContextProvider(props: Props) {
   const [user, setUser] = useState<User>();
   const [host, setHost] = useState<string>();
 
-  const hasProfile = useMemo(
-    () => Boolean(user?.username || user?.title),
-    [user]
-  );
+  const hasProfile = useMemo(() => {
+    return Boolean(user?.username || user?.title);
+  }, [user]);
 
   const context = { user, setUser, hasProfile, host, setHost };
 

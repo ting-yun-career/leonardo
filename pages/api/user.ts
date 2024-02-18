@@ -35,9 +35,9 @@ export default async function handler(
           return user;
         });
 
-        const savingResult = saveUsers(newUsers ?? []);
+        const savingResult = await saveUsers(newUsers ?? []);
 
-        res.status(200).json({ savingResult });
+        res.status(200).json({ status: "success", data: newUserData });
         return;
       }
     } catch {}
