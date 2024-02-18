@@ -82,6 +82,9 @@ export default function HomeComp() {
   };
 
   // Job Title Modal
+  // (This piece and Modal template code is 80% simliar to above and is a good candidate for reusable abstraction, however, it's
+  // for demo purpose and is limited to scope of this file so effort doesn't overweight benefits of
+  // patterning it, but I am aware of it)
   const {
     isOpen: isOpenTitle,
     onOpen: onOpenTitle,
@@ -127,7 +130,7 @@ export default function HomeComp() {
     if (!hasProfile) {
       onOpenUsername();
     }
-  }, []);
+  }, []); // this is intentional, as this ensures wrapped code is triggered only until refresh.
 
   return (
     <>
