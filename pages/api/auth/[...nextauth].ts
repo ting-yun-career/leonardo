@@ -20,24 +20,24 @@ const handler = NextAuth({
         console.log("authorize fetch result", result);
 
         if (result.status === "success") {
-          return result?.data?.[0];
+          return result?.data?.[0] ?? { id: "1", name: "", email: "" };
         }
 
         return null;
       },
     }),
   ],
-  callbacks: {
-    session({ token }) {
-      return token.user as Awaitable<Session | DefaultSession>;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
-      }
-      return token;
-    },
-  },
+  // callbacks: {
+  //   session({ token }) {
+  //     return token.user as Awaitable<Session | DefaultSession>;
+  //   },
+  //   async jwt({ token, user }) {
+  //     if (user) {
+  //       token.user = user;
+  //     }
+  //     return token;
+  //   },
+  // },
 });
 
 export default handler;
