@@ -10,6 +10,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Heading,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -38,7 +39,10 @@ export default function InfoComp({ data }: Props) {
   return (
     <>
       <Box height="calc(100vh - 75px)">
-        <Box w="75%" ml="auto" mr="auto" pt="1rem">
+        <Box w="75%" ml="auto" mr="auto" pt="1rem" maxWidth="50rem">
+          <Heading size="md" mb="1rem">
+            Information
+          </Heading>
           <SimpleGrid minChildWidth="120px" spacing="1rem">
             {countries.map((country) => (
               <Flex
