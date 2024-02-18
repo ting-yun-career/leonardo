@@ -22,7 +22,7 @@ export default function PageInfo(props: Props) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/info");
+  const res = await fetch("/api/info");
 
   const payload = await res.json();
 
