@@ -21,7 +21,7 @@ import {
   ModalFooter,
   useToast,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { saveUser } from "./helper";
 
 export default function HomeComp() {
@@ -38,6 +38,8 @@ export default function HomeComp() {
     onOpen: onOpenUsername,
     onClose: onCloseUsername,
   } = useDisclosure();
+
+  const usernameInputRef = useRef(null);
 
   const onUsernameChange = (username: string) => {
     setUsername(username);
@@ -82,6 +84,8 @@ export default function HomeComp() {
     onOpen: onOpenTitle,
     onClose: onCloseTitle,
   } = useDisclosure();
+
+  const titleInputRef = useRef(null);
 
   const onTitleChange = (title: string) => {
     setTitle(title);
@@ -157,7 +161,12 @@ export default function HomeComp() {
         </Card>
       </Center>
 
-      <Modal isOpen={isOpenUsername} onClose={onCloseUsername} isCentered>
+      <Modal
+        initialFocusRef={usernameInputRef}
+        isOpen={isOpenUsername}
+        onClose={onCloseUsername}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent pb="1rem">
           <ModalHeader>Enter Username</ModalHeader>
@@ -166,6 +175,8 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Username</FormLabel>
               <Input
+                ref={usernameInputRef}
+                focusBorderColor="gray.600"
                 value={username ?? ""}
                 type="text"
                 onChange={(e) => onUsernameChange(e.target.value)}
@@ -180,7 +191,12 @@ export default function HomeComp() {
         </ModalContent>
       </Modal>
 
-      <Modal isOpen={isOpenTitle} onClose={onCloseTitle} isCentered>
+      <Modal
+        initialFocusRef={titleInputRef}
+        isOpen={isOpenTitle}
+        onClose={onCloseTitle}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent pb="1rem">
           <ModalHeader>Enter Title</ModalHeader>
@@ -189,6 +205,8 @@ export default function HomeComp() {
             <FormControl>
               <FormLabel>Title</FormLabel>
               <Input
+                ref={titleInputRef}
+                focusBorderColor="gray.600"
                 value={title ?? ""}
                 type="text"
                 onChange={(e) => onTitleChange(e.target.value)}
