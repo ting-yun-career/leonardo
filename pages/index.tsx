@@ -24,7 +24,7 @@ export default function Root(props: any) {
 export async function getStaticProps() {
   return {
     props: {
-      server: process.env.VERCEL_URL,
+      server: process.env.host,
     },
   };
 }
