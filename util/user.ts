@@ -25,9 +25,20 @@ export async function getUser(id: string) {
   }
 }
 
-export function saveUsers(users: User[]) {
+export async function saveUsers(users: User[]) {
+  console.log("saveUsers");
   try {
-    // write to db
+    const client = await MongoClient.connect(
+      "mongodb+srv://tingyuncareer:45rzv1SnJlrpyllb@cluster0.ccshp9b.mongodb.net/leonardo?retryWrites=true&w=majority"
+    );
+    const db = client.db("leonardo");
+    const collection = db.collection("users");
+
+    const deleteResult = await collection.deleteMany({});
+    console.log("deleteResult: ", deleteResult);
+    const insertResult = await collection.insertMany(users);
+    console.log("insertResult:", insertResult);
+
     return { success: true, data: users };
   } catch (error) {
     return { success: false, error };

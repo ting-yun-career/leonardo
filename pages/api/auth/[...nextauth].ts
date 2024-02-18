@@ -15,29 +15,39 @@ const handler = NextAuth({
           placeholder: "Enter password",
         },
       },
-      authorize: async function (credentials) {
-        const result = await getUsers();
-        console.log("authorize fetch result", result);
+      authorize: function (credentials) {
+        // return { id: "1", name: "aaa", email: "aaa" };
+        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
 
-        if (result.status === "success") {
-          return result?.data?.[0] ?? { id: "1", name: "", email: "" };
+        if (user) {
+          return user;
+        } else {
+          return null;
         }
+        // const result = await getUsers();
+        // console.log("authorize fetch result", result);
 
-        return null;
+        // if (result.status === "success") {
+
+        //   console.log(result)
+        //   return result?.data?.[0] ?? { id: "1", name: "", email: "" };
+        // }
+
+        // return null;
       },
     }),
   ],
-  // callbacks: {
-  //   session({ token }) {
-  //     return token.user as Awaitable<Session | DefaultSession>;
-  //   },
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.user = user;
-  //     }
-  //     return token;
-  //   },
-  // },
+  callbacks: {
+    session({ token }) {
+      return token.user as Awaitable<Session | DefaultSession>;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+  },
 });
 
 export default handler;
