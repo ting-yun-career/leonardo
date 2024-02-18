@@ -23,8 +23,13 @@ export default function PageInfo(props: Props) {
 
 export async function getStaticProps() {
   console.log(process.env.host);
-
-  const res = await fetch(`${process.env.host}/api/info`);
+  let url;
+  if (process.env.VERCEL_URL) {
+    url = `${process.env.host}/api/info`;
+  } else {
+    url = `http://localhost:3000/api/info`;
+  }
+  const res = await fetch(url);
 
   const payload = await res.json();
 
