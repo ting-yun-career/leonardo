@@ -2,7 +2,7 @@ import { getHostUrl } from "@/context/host";
 
 export function saveUser(user: User) {
   return fetch(`${getHostUrl()}/api/user`, {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify(user),
   }).then((response) => response.json());
 }

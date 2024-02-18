@@ -21,7 +21,7 @@ export default function handler(
     } else {
       res.status(500).json({ status: "fail", error: "unable to find user" });
     }
-  } else if (method === "PUT") {
+  } else if (method === "POST") {
     try {
       const newUserData = JSON.parse(req.body);
       const result = getUsers();
