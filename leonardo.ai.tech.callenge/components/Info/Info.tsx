@@ -11,6 +11,7 @@ import {
   ModalCloseButton,
   ModalBody,
   Heading,
+  Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -45,13 +46,14 @@ export default function InfoComp({ data }: Props) {
           </Heading>
           <SimpleGrid minChildWidth="120px" spacing="1rem">
             {countries.map((country) => (
-              <Flex
+              <Button
                 key={country.code}
                 height="5rem"
                 borderWidth="1px"
                 borderRadius="lg"
                 justifyContent="center"
                 alignItems="center"
+                whiteSpace="wrap"
                 _hover={{
                   background: "#ddd",
                   cursor: "pointer",
@@ -65,8 +67,8 @@ export default function InfoComp({ data }: Props) {
                 }}
                 p="0.5rem"
               >
-                <Text textAlign="center">{country.name}</Text>
-              </Flex>
+                {country.name}
+              </Button>
             ))}
           </SimpleGrid>
         </Box>
