@@ -25,7 +25,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { saveUser } from "./helper";
 
 export default function HomeComp() {
-  const { user, setUser, hasProfile } =
+  const { user, setUser, hasProfile, host } =
     useContext<UserContextType>(UserContext);
 
   const [username, setUsername] = useState(user?.username);
@@ -48,9 +48,7 @@ export default function HomeComp() {
   };
 
   const onUsernameSave = () => {
-    console.log(process.env);
-
-    fetch("https://leonardo-pi.vercel.app/api/hello")
+    fetch(`${host}/api/hello`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
