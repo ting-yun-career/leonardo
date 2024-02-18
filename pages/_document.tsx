@@ -1,6 +1,9 @@
+import { setHostUrl } from "@/context/host";
 import { Html, Head, Main, NextScript } from "next/document";
 
-export default function Document() {
+export default function Document(props: any) {
+  setHostUrl(props.host);
+
   return (
     <Html lang="en">
       <Head>
@@ -14,4 +17,11 @@ export default function Document() {
       </body>
     </Html>
   );
+}
+export async function getStaticProps() {
+  return {
+    props: {
+      host: process.env.host,
+    },
+  };
 }
