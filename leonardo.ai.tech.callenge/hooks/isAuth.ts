@@ -20,6 +20,8 @@ const useAuth = () => {
         const session = await getSession();
         if (session) {
           const user = session as unknown as User;
+          // Calling getUser() is required because the session return by getSession() isn't reliable (it returns cached session). On page reload, it
+          // returns cached data and does not fetch latest user data from server, which causes stale data to show up after page reload.
           const payload = await getUser(user.id);
           if (payload.status === "success") {
             setUser(payload.data);

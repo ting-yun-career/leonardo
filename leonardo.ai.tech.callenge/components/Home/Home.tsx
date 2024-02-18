@@ -19,6 +19,7 @@ import {
   FormLabel,
   Input,
   ModalFooter,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { saveUser } from "./helper";
@@ -27,6 +28,8 @@ export default function HomeComp() {
   const { user, setUser, hasProfile } =
     useContext<UserContextType>(UserContext);
   const [modalData, setModalData] = useState<Partial<User>>({});
+
+  const toast = useToast();
 
   // Username Modal
   const {
@@ -44,6 +47,17 @@ export default function HomeComp() {
     saveUser({ ...user, ...modalData } as User).then((payload) => {
       if (payload.status === "success") {
         setUser(payload.data);
+        toast({
+          description: "Data saved",
+          status: "success",
+          duration: 2000,
+        });
+      } else {
+        toast({
+          description: "Data not saved",
+          status: "error",
+          duration: 3000,
+        });
       }
     });
     // onOpenTitle();

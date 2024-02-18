@@ -6,7 +6,3 @@ html a {
 html a:hover {
   text-decoration: underline;
 }
-
-html * {
-  color: var(--green-cloud);
-}
