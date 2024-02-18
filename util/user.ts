@@ -1,28 +1,33 @@
-const fs = require("fs");
-export function getUsers() {
-  try {
-    const data = fs.readFileSync(process.cwd() + `/data/users.json`, "utf-8");
+import { MongoClient } from "mongodb";
 
-    return { status: "success", data: JSON.parse(data) };
+export async function getUsers() {
+  try {
+    const client = await MongoClient.connect(
+      "mongodb+srv://tingyuncareer:45rzv1SnJlrpyllb@cluster0.ccshp9b.mongodb.net/leonardo?retryWrites=true&w=majority"
+    );
+    const db = client.db("leonardo");
+    const collection = db.collection("users");
+    const users = await collection.find().toArray();
+    client.close();
+
+    return { status: "success", data: users };
   } catch (error) {
     return { status: "fail", error };
   }
 }
 
-export function getUser(id: string) {
-  const result = getUsers();
+export async function getUser(id: string) {
+  const result = await getUsers();
+
   if (result.status === "success") {
-    const user = result.data?.find((u: User) => u.id == id) ?? null;
+    const user = result.data?.find((u: any) => u.id == id) ?? null;
     return user;
   }
 }
 
 export function saveUsers(users: User[]) {
   try {
-    fs.writeFileSync(
-      process.cwd() + `/data/users.json`,
-      JSON.stringify(users, null, 2)
-    );
+    // write to db
     return { success: true };
   } catch (error) {
     return { success: false, error };

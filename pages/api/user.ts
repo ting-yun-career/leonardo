@@ -8,7 +8,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // };
 type ResPayloadType = any;
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResPayloadType>
 ) {
@@ -16,7 +16,7 @@ export default function handler(
 
   if (method === "GET") {
     const { id } = req.query;
-    const data = getUser(id as string);
+    const data = await getUser(id as string);
     if (data) {
       res.status(200).json({ status: "success", data });
     } else {
@@ -25,10 +25,10 @@ export default function handler(
   } else if (method === "POST") {
     try {
       const newUserData = JSON.parse(req.body);
-      const result = getUsers();
+      const result = await getUsers();
 
       if (result.status === "success") {
-        const newUsers = result.data.map((user: User) => {
+        const newUsers = result.data?.map((user: User) => {
           if (user.id === newUserData.id) {
             return { ...user, ...newUserData };
           }
