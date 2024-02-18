@@ -22,10 +22,12 @@ export default function PageInfo(props: Props) {
 }
 
 export async function getStaticProps() {
-  console.log(process.env.host);
   let url;
+
+  console.log(process.env.VERCEL_URL);
+
   if (process.env.VERCEL_URL) {
-    url = `${process.env.host}/api/info`;
+    url = `${process.env.VERCEL_URL}/api/info`;
   } else {
     url = `http://localhost:3000/api/info`;
   }
