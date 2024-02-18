@@ -39,26 +39,8 @@ export default async function handler(
 
         res.status(200).json({ savingResult });
         return;
-
-        if (savingResult.success) {
-          res.status(200).json({ status: "success", data: newUserData });
-        } else {
-          res
-            .status(500)
-            .json({ status: "fail", error: "unable to save user" });
-        }
-      } else {
-        res
-          .status(500)
-          .json({ status: "fail", error: "unable to read user data" });
       }
-    } catch (error) {
-      res
-        .status(500)
-        .json({ status: "fail", error: "unable to parse user data" });
-    }
-
-    res.status(200).json({ status: "success" });
+    } catch {}
   } else {
     res.status(500).json({ status: "fail", error: "method not supported" });
   }
