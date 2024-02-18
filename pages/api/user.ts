@@ -25,9 +25,9 @@ export default function handler(
   } else if (method === "POST") {
     try {
       const newUserData = JSON.parse(req.body);
-      res.status(200).json({ newUserData });
-      return;
       const result = getUsers();
+      res.status(200).json({ result });
+      return;
 
       if (result.status === "success") {
         const newUsers = result.data.map((user: User) => {
