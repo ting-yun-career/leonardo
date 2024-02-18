@@ -23,7 +23,6 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { saveUser } from "./helper";
-import { getHostUrl } from "@/context/host";
 
 export default function HomeComp() {
   const { user, setUser, hasProfile } =
@@ -50,6 +49,8 @@ export default function HomeComp() {
 
   const onUsernameSave = () => {
     onCloseUsername();
+    setBlockModalOpen(true);
+
     saveUser({ ...user, username } as User)
       .then((payload) => {
         if (payload.status === "success") {
@@ -61,22 +62,17 @@ export default function HomeComp() {
             duration: 1000,
           });
 
-          setBlockModalOpen(true);
           setTimeout(() => {
             onOpenTitle();
             setBlockModalOpen(false);
           }, 1000);
         } else {
-          setUsername(user?.username);
-          toast({
-            description: "Data not saved",
-            status: "error",
-            duration: 2000,
-          });
+          throw "Data not saved";
         }
       })
       .catch(() => {
         setUsername(user?.username);
+        setBlockModalOpen(false);
         toast({
           description: "Data not saved",
           status: "error",
@@ -101,26 +97,24 @@ export default function HomeComp() {
 
   const onTitleSave = () => {
     onCloseTitle();
+    setBlockModalOpen(true);
     saveUser({ ...user, title } as User)
       .then((payload) => {
         if (payload.status === "success") {
           setUser(payload.data);
+          setBlockModalOpen(false);
           toast({
             description: "Data saved",
             status: "success",
             duration: 1000,
           });
         } else {
-          setTitle(user?.title);
-          toast({
-            description: "Data not saved",
-            status: "error",
-            duration: 2000,
-          });
+          throw "Data not saved";
         }
       })
       .catch(() => {
         setTitle(user?.title);
+        setBlockModalOpen(false);
         toast({
           description: "Data not saved",
           status: "error",
@@ -163,7 +157,7 @@ export default function HomeComp() {
               ref={modalTriggerRef}
               isLoading={blockModalOpen}
               onClick={() => {
-                onOpenUsername();
+                onOpenTitle();
               }}
             >
               {hasProfile ? `Update Profile` : `Add Profile`}

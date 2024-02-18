@@ -1,18 +1,13 @@
 import { getUser, getUsers, saveUsers } from "@/util/user";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// type ResPayloadType = {
-//   status: string;
-//   data?: User;
-//   error?: string;
-// };
 type ResPayloadType = any;
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResPayloadType>
 ) {
-  const { method, body } = req;
+  const { method } = req;
 
   if (method === "GET") {
     const { id } = req.query;
@@ -35,7 +30,7 @@ export default async function handler(
           return user;
         });
 
-        const savingResult = await saveUsers(newUsers ?? []);
+        await saveUsers(newUsers ?? []);
 
         res.status(200).json({ status: "success", data: newUserData });
         return;
