@@ -22,7 +22,9 @@ export default function PageInfo(props: Props) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("/api/info");
+  console.log(process.env.host);
+
+  const res = await fetch(`${process.env.host}/api/info`);
 
   const payload = await res.json();
 
